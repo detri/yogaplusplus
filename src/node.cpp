@@ -89,6 +89,32 @@ namespace Yoga
         YGNodeStyleSetFlexDirection(_yogaNode, flexDirection);
     }
 
+    void Node::setMargin(const float margin)
+    {
+        YGNodeStyleSetMargin(_yogaNode, YGEdgeAll, margin);
+    }
+
+    void Node::setMargin(const float marginTop, const float marginRight, const float marginBottom, const float marginLeft)
+    {
+        YGNodeStyleSetMargin(_yogaNode, YGEdgeTop, marginTop);
+        YGNodeStyleSetMargin(_yogaNode, YGEdgeRight, marginRight);
+        YGNodeStyleSetMargin(_yogaNode, YGEdgeBottom, marginBottom);
+        YGNodeStyleSetMargin(_yogaNode, YGEdgeLeft, marginLeft);
+    }
+
+    void Node::setPadding(const float padding)
+    {
+        YGNodeStyleSetPadding(_yogaNode, YGEdgeAll, padding);
+    }
+
+    void Node::setPadding(const float paddingTop, const float paddingRight, const float paddingBottom, const float paddingLeft)
+    {
+        YGNodeStyleSetPadding(_yogaNode, YGEdgeTop, paddingTop);
+        YGNodeStyleSetPadding(_yogaNode, YGEdgeRight, paddingRight);
+        YGNodeStyleSetPadding(_yogaNode, YGEdgeBottom, paddingBottom);
+        YGNodeStyleSetPadding(_yogaNode, YGEdgeLeft, paddingLeft);
+    }
+
     float Node::getLeft() const
     {
         return YGNodeLayoutGetLeft(_yogaNode);

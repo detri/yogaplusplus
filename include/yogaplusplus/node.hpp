@@ -43,6 +43,14 @@ namespace Yoga
 
         void setFlexDirection(YGFlexDirection flexDirection);
 
+        void setMargin(float margin);
+
+        void setMargin(float marginTop, float marginRight, float marginBottom, float marginLeft);
+
+        void setPadding(float padding);
+
+        void setPadding(float paddingTop, float paddingRight, float paddingBottom, float paddingLeft);
+
         [[nodiscard]] float getLeft() const;
 
         [[nodiscard]] float getTop() const;

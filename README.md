@@ -22,7 +22,7 @@ add_executable(myTarget)
 target_link_libraries(myTarget PRIVATE yogaplusplus)
 ```
 
-Basic example: `examples/hello_yoga.cpp`
+Basic example:
 ```c++
 #include <yogaplusplus/yogaplusplus.hpp>
 #include <iostream>
