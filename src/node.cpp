@@ -2,99 +2,97 @@
 
 namespace Yoga
 {
-    Node::Node() : _yogaNode{YGNodeNew()}
+    BaseNode::BaseNode() : _yogaNode{nullptr}
     {
     }
 
-    Node::~Node()
-    {
-        YGNodeFree(_yogaNode);
-    }
+    BaseNode::~BaseNode()
+    = default;
 
-    void Node::calculateLayout(const float width, const float height, const YGDirection direction)
+    void BaseNode::calculateLayout(const float width, const float height, const YGDirection direction)
     {
         YGNodeCalculateLayout(_yogaNode, width, height, direction);
     }
 
-    void Node::setX(const float x)
+    void BaseNode::setX(const float x)
     {
         YGNodeStyleSetPosition(_yogaNode, YGEdgeLeft, x);
     }
 
-    void Node::setY(const float y)
+    void BaseNode::setY(const float y)
     {
         YGNodeStyleSetPosition(_yogaNode, YGEdgeTop, y);
     }
 
-    void Node::setPosition(const float x, const float y)
+    void BaseNode::setPosition(const float x, const float y)
     {
         setX(x);
         setY(y);
     }
 
-    void Node::setWidth(const float width)
+    void BaseNode::setWidth(const float width)
     {
         YGNodeStyleSetWidth(_yogaNode, width);
     }
 
-    void Node::setHeight(const float height)
+    void BaseNode::setHeight(const float height)
     {
         YGNodeStyleSetHeight(_yogaNode, height);
     }
 
-    void Node::setSize(const float width, const float height)
+    void BaseNode::setSize(const float width, const float height)
     {
         setWidth(width);
         setHeight(height);
     }
 
-    void Node::setWidthPercent(const float widthPercent)
+    void BaseNode::setWidthPercent(const float widthPercent)
     {
         YGNodeStyleSetWidthPercent(_yogaNode, widthPercent);
     }
 
-    void Node::setHeightPercent(const float heightPercent)
+    void BaseNode::setHeightPercent(const float heightPercent)
     {
         YGNodeStyleSetHeightPercent(_yogaNode, heightPercent);
     }
 
-    void Node::setSizePercent(const float widthPercent, const float heightPercent)
+    void BaseNode::setSizePercent(const float widthPercent, const float heightPercent)
     {
         setWidthPercent(widthPercent);
         setHeightPercent(heightPercent);
     }
 
-    void Node::setFlex(const float flex)
+    void BaseNode::setFlex(const float flex)
     {
         YGNodeStyleSetFlex(_yogaNode, flex);
     }
 
-    void Node::setFlexGrow(const float flexGrow)
+    void BaseNode::setFlexGrow(const float flexGrow)
     {
         YGNodeStyleSetFlexGrow(_yogaNode, flexGrow);
     }
 
-    void Node::setFlexShrink(const float flexShrink)
+    void BaseNode::setFlexShrink(const float flexShrink)
     {
         YGNodeStyleSetFlexShrink(_yogaNode, flexShrink);
     }
 
-    void Node::setFlexBasis(const float flexBasis)
+    void BaseNode::setFlexBasis(const float flexBasis)
     {
         YGNodeStyleSetFlexBasis(_yogaNode, flexBasis);
     }
 
-    void Node::setFlexDirection(const YGFlexDirection flexDirection)
+    void BaseNode::setFlexDirection(const YGFlexDirection flexDirection)
     {
         YGNodeStyleSetFlexDirection(_yogaNode, flexDirection);
     }
 
-    void Node::setMargin(const float margin)
+    void BaseNode::setMargin(const float margin)
     {
         YGNodeStyleSetMargin(_yogaNode, YGEdgeAll, margin);
     }
 
-    void Node::setMargin(const float marginTop, const float marginRight, const float marginBottom, const float marginLeft)
+    void BaseNode::setMargin(const float marginTop, const float marginRight, const float marginBottom, const float marginLeft)
     {
         YGNodeStyleSetMargin(_yogaNode, YGEdgeTop, marginTop);
         YGNodeStyleSetMargin(_yogaNode, YGEdgeRight, marginRight);
@@ -102,12 +100,12 @@ namespace Yoga
         YGNodeStyleSetMargin(_yogaNode, YGEdgeLeft, marginLeft);
     }
 
-    void Node::setPadding(const float padding)
+    void BaseNode::setPadding(const float padding)
     {
         YGNodeStyleSetPadding(_yogaNode, YGEdgeAll, padding);
     }
 
-    void Node::setPadding(const float paddingTop, const float paddingRight, const float paddingBottom, const float paddingLeft)
+    void BaseNode::setPadding(const float paddingTop, const float paddingRight, const float paddingBottom, const float paddingLeft)
     {
         YGNodeStyleSetPadding(_yogaNode, YGEdgeTop, paddingTop);
         YGNodeStyleSetPadding(_yogaNode, YGEdgeRight, paddingRight);
@@ -115,63 +113,127 @@ namespace Yoga
         YGNodeStyleSetPadding(_yogaNode, YGEdgeLeft, paddingLeft);
     }
 
-    void Node::setContext(void* contextPtr)
+    void BaseNode::setContext(void* contextPtr)
     {
         YGNodeSetContext(_yogaNode, contextPtr);
     }
 
-    float Node::getLeft() const
-    {
-        return YGNodeLayoutGetLeft(_yogaNode);
-    }
-
-    float Node::getTop() const
-    {
-        return YGNodeLayoutGetTop(_yogaNode);
-    }
-
-    float Node::getRight() const
-    {
-        return YGNodeLayoutGetRight(_yogaNode);
-    }
-
-    float Node::getBottom() const
-    {
-        return YGNodeLayoutGetBottom(_yogaNode);
-    }
-
-    float Node::getWidth() const
-    {
-        return YGNodeLayoutGetWidth(_yogaNode);
-    }
-
-    float Node::getHeight() const
-    {
-        return YGNodeLayoutGetHeight(_yogaNode);
-    }
-
-    size_t Node::getChildCount() const
+    size_t BaseNode::childCount() const
     {
         return YGNodeGetChildCount(_yogaNode);
     }
 
-    void Node::insertChild(const Node& child)
+    float BaseNode::getLeft() const
+    {
+        return YGNodeLayoutGetLeft(_yogaNode);
+    }
+
+    float BaseNode::getTop() const
+    {
+        return YGNodeLayoutGetTop(_yogaNode);
+    }
+
+    float BaseNode::getRight() const
+    {
+        return YGNodeLayoutGetRight(_yogaNode);
+    }
+
+    float BaseNode::getBottom() const
+    {
+        return YGNodeLayoutGetBottom(_yogaNode);
+    }
+
+    float BaseNode::getWidth() const
+    {
+        return YGNodeLayoutGetWidth(_yogaNode);
+    }
+
+    float BaseNode::getHeight() const
+    {
+        return YGNodeLayoutGetHeight(_yogaNode);
+    }
+
+    size_t BaseNode::getChildCount() const
+    {
+        return YGNodeGetChildCount(_yogaNode);
+    }
+
+    void BaseNode::insertChild(const Node& child)
     {
         YGNodeInsertChild(_yogaNode, child._yogaNode, getChildCount());
     }
 
-    void Node::removeChild(const Node& child)
+    void BaseNode::removeChild(const Node& child)
     {
         YGNodeRemoveChild(_yogaNode, child._yogaNode);
     }
 
-    YGDisplay Node::getDisplay() const
+    void BaseNode::insertChild(const WeakNode& child)
+    {
+        YGNodeInsertChild(_yogaNode, child._yogaNode, getChildCount());
+    }
+
+    void BaseNode::removeChild(const WeakNode& child)
+    {
+        YGNodeRemoveChild(_yogaNode, child._yogaNode);
+    }
+
+    YGDisplay BaseNode::getDisplay() const
     {
         return YGNodeStyleGetDisplay(_yogaNode);
     }
 
-    void Node::setDisplay(const YGDisplay display)
+    void BaseNode::setDisplay(const YGDisplay display)
     {
         return YGNodeStyleSetDisplay(_yogaNode, display);
+    }
+
+    bool BaseNode::hasChildren() const
+    {
+        return YGNodeGetChildCount(_yogaNode) > 0;
+    }
+
+    void BaseNode::getChildren(std::vector<WeakNode>& children) const
+    {
+        const size_t count = YGNodeGetChildCount(_yogaNode);
+        children.clear();
+        children.reserve(count);
+
+        for (size_t i = 0; i < count; ++i) {
+            YGNodeRef childNode = YGNodeGetChild(_yogaNode, i);
+            children.emplace_back(childNode);
+        }
+    }
+
+    std::vector<WeakNode> BaseNode::getChildren() const
+    {
+        std::vector<WeakNode> children;
+        children.reserve(childCount());
+
+        for (size_t i = 0; i < childCount(); ++i) {
+            children.emplace_back(YGNodeGetChild(_yogaNode, i));
+        }
+
+        return children;
+    }
+
+    Node::Node(YGNodeRef yogaNode)
+    {
+        _yogaNode = yogaNode;
+    }
+
+    Node::~Node()
+    {
+        YGNodeFree(_yogaNode);
+    }
+
+    WeakNode Node::weak() const
+    {
+        return WeakNode{_yogaNode};
+    }
+
+    WeakNode::WeakNode(YGNodeRef yogaNode)
+    {
+        _yogaNode = yogaNode;
     }
 }

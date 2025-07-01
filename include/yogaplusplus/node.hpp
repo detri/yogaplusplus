@@ -1,17 +1,20 @@
 #ifndef YOGA_NODE_HPP
 #define YOGA_NODE_HPP
 
+#include <vector>
 #include <yoga/Yoga.h>
 
 namespace Yoga
 {
-    class Node
+    class BaseNode
     {
+    protected:
+        YGNodeRef _yogaNode;
 
     public:
-        explicit Node();
+        explicit BaseNode();
 
-        ~Node();
+        virtual ~BaseNode();
 
         friend class LayoutContext;
 
@@ -53,11 +56,15 @@ namespace Yoga
 
         void setContext(void* contextPtr);
 
+        [[nodiscard]] size_t childCount() const;
+
         template<typename Context>
         auto* getContext() const
         {
             return static_cast<Context*>(YGNodeGetContext(_yogaNode));
         }
+
+        [[nodiscard]] bool hasChildren() const;
 
         [[nodiscard]] float getLeft() const;
 
@@ -73,18 +80,39 @@ namespace Yoga
 
         [[nodiscard]] size_t getChildCount() const;
 
-        void insertChild(const Node& child);
+        void insertChild(const class Node& child);
 
         void removeChild(const Node& child);
+
+        void insertChild(const class WeakNode& child);
+
+        void removeChild(const WeakNode& child);
+
+        void getChildren(std::vector<WeakNode>& children) const;
+
+        [[nodiscard]] std::vector<WeakNode> getChildren() const;
 
         [[nodiscard]] YGDisplay getDisplay() const;
 
         void setDisplay(YGDisplay display);
 
         void calculateLayout(float width, float height, YGDirection direction = YGDirectionLTR);
+    };
 
-    private:
-        YGNodeRef _yogaNode;
+    class Node final : public BaseNode
+    {
+    public:
+        explicit Node(YGNodeRef yogaNode = YGNodeNew());
+
+        ~Node() override;
+
+        [[nodiscard]] WeakNode weak() const;
+    };
+
+    class WeakNode final : public BaseNode
+    {
+    public:
+        explicit WeakNode(YGNodeRef yogaNode);
     };
 }
 
