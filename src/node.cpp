@@ -217,6 +217,11 @@ namespace Yoga
         return children;
     }
 
+    WeakNode BaseNode::getParent() const
+    {
+        return WeakNode{YGNodeGetParent(_yogaNode)};
+    }
+
     Node::Node(YGNodeRef yogaNode)
     {
         _yogaNode = yogaNode;

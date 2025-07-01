@@ -92,6 +92,8 @@ namespace Yoga
 
         [[nodiscard]] std::vector<WeakNode> getChildren() const;
 
+        [[nodiscard]] WeakNode getParent() const;
+
         [[nodiscard]] YGDisplay getDisplay() const;
 
         void setDisplay(YGDisplay display);
