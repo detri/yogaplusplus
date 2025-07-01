@@ -51,6 +51,14 @@ namespace Yoga
 
         void setPadding(float paddingTop, float paddingRight, float paddingBottom, float paddingLeft);
 
+        void setContext(void* contextPtr);
+
+        template<typename Context>
+        auto* getContext() const
+        {
+            return static_cast<Context*>(YGNodeGetContext(_yogaNode));
+        }
+
         [[nodiscard]] float getLeft() const;
 
         [[nodiscard]] float getTop() const;

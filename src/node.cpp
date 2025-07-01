@@ -115,6 +115,11 @@ namespace Yoga
         YGNodeStyleSetPadding(_yogaNode, YGEdgeLeft, paddingLeft);
     }
 
+    void Node::setContext(void* contextPtr)
+    {
+        YGNodeSetContext(_yogaNode, contextPtr);
+    }
+
     float Node::getLeft() const
     {
         return YGNodeLayoutGetLeft(_yogaNode);
