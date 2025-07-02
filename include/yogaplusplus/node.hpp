@@ -105,8 +105,12 @@ namespace Yoga
     {
     public:
         explicit Node(YGNodeRef yogaNode = YGNodeNew());
-
         ~Node() override;
+
+        Node(const Node& other) = delete;
+        Node& operator=(const Node& other) = delete;
+        Node(Node&& other) noexcept;
+        Node& operator=(Node&& other) noexcept;
 
         [[nodiscard]] WeakNode weak() const;
     };

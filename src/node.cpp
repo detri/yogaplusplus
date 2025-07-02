@@ -227,9 +227,27 @@ namespace Yoga
         _yogaNode = yogaNode;
     }
 
+    Node::Node(Node&& other) noexcept
+    {
+        _yogaNode = other._yogaNode;
+        other._yogaNode = nullptr;
+    }
+
+    Node& Node::operator=(Node&& other) noexcept
+    {
+        if (this != &other) {
+            _yogaNode = other._yogaNode;
+            other._yogaNode = nullptr;
+        }
+        return *this;
+    }
+
     Node::~Node()
     {
-        YGNodeFree(_yogaNode);
+        if (_yogaNode)
+        {
+            YGNodeFree(_yogaNode);
+        }
     }
 
     WeakNode Node::weak() const
